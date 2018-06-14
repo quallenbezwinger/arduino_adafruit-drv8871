@@ -49,6 +49,11 @@ byte DRV8871::currentSpeed ()
   return _currentSpeed;
 }
 
+byte DRV8871::currentDirection ()
+{
+  return _currentDirection;
+}
+
 void DRV8871::rampUpForward(byte targetSpeed)
 {
   _currentDirection = DIRECTION_FORWARD;

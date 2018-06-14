@@ -17,6 +17,7 @@ class DRV8871
     void accelerate(byte targetSpeed, byte direction);
     void breakdown(byte targetSpeed = 0);
     byte currentSpeed();
+    byte currentDirection();
   private:
     const byte ACCELERATION_DELAY_MS = 10;
     byte _motorIN1Pin;
