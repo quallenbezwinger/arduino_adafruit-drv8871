@@ -17,20 +17,33 @@ DRV8871::DRV8871(byte motorIN1Pin, byte motorIN2Pin)
 
 void DRV8871::accelerate(byte targetSpeed, byte direction)
 {
-  if (direction == DIRECTION_FORWARD && _currentDirection == DIRECTION_NONE)
+  if (direction == DIRECTION_FORWARD && _currentDirection == DIRECTION_BACKWARD)
   {
-    rampUpForward(targetSpeed);
-  } else if (direction == DIRECTION_FORWARD && _currentDirection == DIRECTION_BACKWARD)
-  {
+    #ifdef DEBUG
+      Serial.println("ramp down backward and then ramp up forward");
+    #endif
     rampDownBackward(0);
     rampUpForward(targetSpeed);
-  } else if (direction == DIRECTION_BACKWARD && _currentDirection == DIRECTION_BACKWARD)
+  } else if (direction == DIRECTION_FORWARD || _currentDirection == DIRECTION_NONE)
   {
-    rampUpBackward(targetSpeed);
-  } else if (direction == DIRECTION_BACKWARD && _currentDirection == DIRECTION_FORWARD)
+    #ifdef DEBUG
+      Serial.println("ramp up forward");
+    #endif
+    rampUpForward(targetSpeed);
+  } 
+  else if (direction == DIRECTION_BACKWARD && _currentDirection == DIRECTION_FORWARD)
   {
+    #ifdef DEBUG
+      Serial.println("ramp down forward and then ramp up backward");
+    #endif
     rampDownForward(0);
-    rampUpBackward(0);
+    rampUpBackward(targetSpeed);
+  } else if (direction == DIRECTION_BACKWARD || _currentDirection == DIRECTION_NONE)
+  {
+    #ifdef DEBUG
+      Serial.println("ramp up backward");
+    #endif
+    rampUpBackward(targetSpeed);
   }
   //check if spped is 0, if yes direction is set to neutral
   if (_currentSpeed == 0)
@@ -39,7 +52,7 @@ void DRV8871::accelerate(byte targetSpeed, byte direction)
   }
 }
 
-void DRV8871::breakdown(byte targetSpeed = 0)
+void DRV8871::breakdown(byte targetSpeed)
 {
   if (_currentDirection == DIRECTION_FORWARD)
   {
