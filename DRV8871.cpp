@@ -11,12 +11,13 @@ DRV8871::DRV8871(byte motorIN1Pin, byte motorIN2Pin)
   byte _motorIN1Pin = motorIN1Pin;
   byte _motorIN2Pin = motorIN2Pin;
   pinMode(motorIN1Pin, OUTPUT);
-  pinMode(motorIN2Pin, OUTPUT);  
+  pinMode(motorIN2Pin, OUTPUT); 
+  _currentDirection = DIRECTION_NONE;
 }
 
 void DRV8871::accelerate(byte targetSpeed, byte direction)
 {
-  if (direction == DIRECTION_FORWARD && _currentDirection == DIRECTION_FORWARD)
+  if (direction == DIRECTION_FORWARD && _currentDirection == DIRECTION_NONE)
   {
     rampUpForward(targetSpeed);
   } else if (direction == DIRECTION_FORWARD && _currentDirection == DIRECTION_BACKWARD)
@@ -60,6 +61,8 @@ void DRV8871::rampUpForward(byte targetSpeed)
   digitalWrite(_motorIN1Pin, LOW);
   for (int i=_currentSpeed; i<targetSpeed; i++)
   {
+    Serial.println("i");
+    Serial.println(i);
     analogWrite(_motorIN2Pin, i);
     _currentSpeed = i;
     delay(ACCELERATION_DELAY_MS);

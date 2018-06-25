@@ -12,8 +12,9 @@ class DRV8871
 {
   public:
     DRV8871 (byte motorIN1Pin, byte motorIN2Pin);
-    const byte DIRECTION_BACKWARD = 0;
-    const byte DIRECTION_FORWARD = 1;
+    const byte DIRECTION_BACKWARD = 1;
+    const byte DIRECTION_FORWARD = 2;
+    const byte DIRECTION_NONE = 0;
     void accelerate(byte targetSpeed, byte direction);
     void breakdown(byte targetSpeed = 0);
     byte currentSpeed();
