@@ -8,10 +8,10 @@
 
 DRV8871::DRV8871(byte motorIN1Pin, byte motorIN2Pin)
 {
-  byte _motorIN1Pin = motorIN1Pin;
-  byte _motorIN2Pin = motorIN2Pin;
-  pinMode(motorIN1Pin, OUTPUT);
-  pinMode(motorIN2Pin, OUTPUT); 
+  _motorIN1Pin = motorIN1Pin;
+  _motorIN2Pin = motorIN2Pin;
+  pinMode(_motorIN1Pin, OUTPUT);
+  pinMode(_motorIN2Pin, OUTPUT); 
   _currentDirection = DIRECTION_NONE;
 }
 
@@ -31,6 +31,11 @@ void DRV8871::accelerate(byte targetSpeed, byte direction)
   {
     rampDownForward(0);
     rampUpBackward(0);
+  }
+  //check if spped is 0, if yes direction is set to neutral
+  if (_currentSpeed == 0)
+  {
+    _currentDirection == DIRECTION_NONE;
   }
 }
 
@@ -61,8 +66,10 @@ void DRV8871::rampUpForward(byte targetSpeed)
   digitalWrite(_motorIN1Pin, LOW);
   for (int i=_currentSpeed; i<targetSpeed; i++)
   {
-    Serial.println("i");
-    Serial.println(i);
+    #ifdef DEBUG
+      Serial.println("increasing speed forward by:");
+      Serial.println(i);
+    #endif
     analogWrite(_motorIN2Pin, i);
     _currentSpeed = i;
     delay(ACCELERATION_DELAY_MS);
@@ -75,6 +82,10 @@ void DRV8871::rampDownForward(byte targetSpeed)
   digitalWrite(_motorIN1Pin, LOW);
   for (int i=_currentSpeed; i>=targetSpeed; i--)
   {
+    #ifdef DEBUG
+      Serial.println("decreasing speed forward by:");
+      Serial.println(i);
+    #endif
     analogWrite(_motorIN2Pin, i);
     _currentSpeed = i;
     delay(ACCELERATION_DELAY_MS);
@@ -87,6 +98,10 @@ void DRV8871::rampUpBackward(byte targetSpeed)
   digitalWrite(_motorIN2Pin, LOW);
   for (int i=_currentSpeed; i<targetSpeed; i++)
   {
+    #ifdef DEBUG
+      Serial.println("increasing speed backward by:");
+      Serial.println(i);
+    #endif
     analogWrite(_motorIN1Pin, i);
     _currentSpeed = i;
     delay(ACCELERATION_DELAY_MS);
@@ -99,6 +114,10 @@ void DRV8871::rampDownBackward(byte targetSpeed)
   digitalWrite(_motorIN2Pin, LOW);
   for (int i=_currentSpeed; i>=targetSpeed; i--)
   {
+    #ifdef DEBUG
+      Serial.println("decreasing speed backward by:");
+      Serial.println(i);
+    #endif
     analogWrite(_motorIN1Pin, i);
     _currentSpeed = i;
     delay(ACCELERATION_DELAY_MS);

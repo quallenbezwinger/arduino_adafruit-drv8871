@@ -8,6 +8,8 @@
 
 #include "Arduino.h"
 
+//#define DEBUG
+
 class DRV8871
 {
   public:
