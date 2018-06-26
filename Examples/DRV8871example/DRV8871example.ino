@@ -16,44 +16,43 @@ void setup() {
 }
 
 void loop() {
-  Serial.println("ramp up forward from zero to 50");
-  motor.accelerate(50,motor.DIRECTION_FORWARD);
+  Serial.println("ramp up forward from zero to 100");
+  motor.drive(100, motor.DIRECTION_FORWARD, 10);
   Serial.println("Current speed:");
   Serial.println(motor.currentSpeed());
   Serial.println("Current direction:");
   Serial.println(motor.currentDirection());
   delay(2000);
 
-  Serial.println("increasing forward speed by ramp up from 50 to 100");
-  motor.accelerate(100,motor.DIRECTION_FORWARD);
+  Serial.println("increasing forward speed by ramp up from 100 to 255");
+  motor.drive(255, motor.DIRECTION_FORWARD, 8);
   Serial.println("Current speed:");
   Serial.println(motor.currentSpeed());
   Serial.println("Current direction:");
   Serial.println(motor.currentDirection());
   delay(2000);
 
-  Serial.println("switching from forward 100 to backward 70");
-  motor.accelerate(70,motor.DIRECTION_BACKWARD);
+  Serial.println("switching from forward 255 to backward 150");
+  motor.drive(150, motor.DIRECTION_BACKWARD, 5);
+  Serial.println("Current speed:")2
+  Serial.println(motor.currentSpeed());
+  Serial.println("Current direction:");
+  Serial.println(motor.currentDirection());
+  delay(4000);
+
+  Serial.println("breaking from backward 150 to backward 80");
+  motor.breakdown(4);
   Serial.println("Current speed:");
   Serial.println(motor.currentSpeed());
   Serial.println("Current direction:");
   Serial.println(motor.currentDirection());
-  delay(2000);
+  delay(4000);
 
-  Serial.println("breaking from backward 70 to backward 10");
-  motor.breakdown(10);
-  Serial.println("Current speed:");
-  Serial.println(motor.currentSpeed());
-  Serial.println("Current direction:");
-  Serial.println(motor.currentDirection());
-  delay(2000);
-
-  Serial.println("breaking from backward 10 to backward 0");
+  Serial.println("breaking from backward 80 to backward 0 instantly");
   motor.breakdown();
   Serial.println("Current speed:");
   Serial.println(motor.currentSpeed());
   Serial.println("Current direction:");
   Serial.println(motor.currentDirection());
-  delay(2000);
- 
+  delay(4000);
 }
