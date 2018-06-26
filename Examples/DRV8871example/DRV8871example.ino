@@ -34,7 +34,7 @@ void loop() {
 
   Serial.println("switching from forward 255 to backward 150");
   motor.drive(150, motor.DIRECTION_BACKWARD, 5);
-  Serial.println("Current speed:")2
+  Serial.println("Current speed:");
   Serial.println(motor.currentSpeed());
   Serial.println("Current direction:");
   Serial.println(motor.currentDirection());
