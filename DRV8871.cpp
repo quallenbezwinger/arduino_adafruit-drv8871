@@ -24,7 +24,8 @@ void DRV8871::accelerate(byte targetSpeed, byte direction)
     #endif
     rampDownBackward(0);
     rampUpForward(targetSpeed);
-  } else if (direction == DIRECTION_FORWARD || _currentDirection == DIRECTION_NONE)
+  }
+  else if (direction == DIRECTION_FORWARD || _currentDirection == DIRECTION_NONE)
   {
     #ifdef DEBUG
       Serial.println("ramp up forward");
@@ -38,7 +39,8 @@ void DRV8871::accelerate(byte targetSpeed, byte direction)
     #endif
     rampDownForward(0);
     rampUpBackward(targetSpeed);
-  } else if (direction == DIRECTION_BACKWARD || _currentDirection == DIRECTION_NONE)
+  }
+  else if (direction == DIRECTION_BACKWARD || _currentDirection == DIRECTION_NONE)
   {
     #ifdef DEBUG
       Serial.println("ramp up backward");
@@ -60,23 +62,14 @@ void DRV8871::breakdown(byte targetSpeed)
       Serial.println("breaking down forward direction");
     #endif
     rampDownForward(targetSpeed);
-  } else
+  }
+  else
   {
     #ifdef DEBUG
       Serial.println("breaking down backward direction");
     #endif
     rampDownBackward(targetSpeed);
   }
-}
-
-byte DRV8871::currentSpeed ()
-{
-  return _currentSpeed;
-}
-
-byte DRV8871::currentDirection ()
-{
-  return _currentDirection;
 }
 
 void DRV8871::rampUpForward(byte targetSpeed)
@@ -141,4 +134,14 @@ void DRV8871::rampDownBackward(byte targetSpeed)
     _currentSpeed = i;
     delay(ACCELERATION_DELAY_MS);
   }
+}
+
+byte DRV8871::currentSpeed ()
+{
+  return _currentSpeed;
+}
+
+byte DRV8871::currentDirection ()
+{
+  return _currentDirection;
 }
