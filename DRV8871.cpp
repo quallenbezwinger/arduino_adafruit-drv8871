@@ -22,30 +22,30 @@ void DRV8871::drive(byte targetSpeed, byte direction, int acceleration)
     #ifdef DEBUG
       Serial.println("ramp down backward and then ramp up forward");
     #endif
-    rampDownBackward(0);
-    rampUpForward(targetSpeed);
+    rampDownBackward(0, acceleration);
+    rampUpForward(targetSpeed, acceleration);
   }
   else if (direction == DIRECTION_FORWARD || _currentDirection == DIRECTION_NONE)
   {
     #ifdef DEBUG
       Serial.println("ramp up forward");
     #endif
-    rampUpForward(targetSpeed);
+    rampUpForward(targetSpeed, acceleration);
   } 
   else if (direction == DIRECTION_BACKWARD && _currentDirection == DIRECTION_FORWARD)
   {
     #ifdef DEBUG
       Serial.println("ramp down forward and then ramp up backward");
     #endif
-    rampDownForward(0);
-    rampUpBackward(targetSpeed);
+    rampDownForward(0, acceleration);
+    rampUpBackward(targetSpeed, acceleration);
   }
   else if (direction == DIRECTION_BACKWARD || _currentDirection == DIRECTION_NONE)
   {
     #ifdef DEBUG
       Serial.println("ramp up backward");
     #endif
-    rampUpBackward(targetSpeed);
+    rampUpBackward(targetSpeed, acceleration);
   }
   //check if spped is 0, if yes direction is set to neutral
   if (_currentSpeed == 0)
@@ -54,25 +54,25 @@ void DRV8871::drive(byte targetSpeed, byte direction, int acceleration)
   }
 }
 
-void DRV8871::breakdown(byte targetSpeed)
+void DRV8871::breakdown(byte targetSpeed, int acceleration)
 {
   if (_currentDirection == DIRECTION_FORWARD)
   {
     #ifdef DEBUG
       Serial.println("breaking down forward direction");
     #endif
-    rampDownForward(targetSpeed);
+    rampDownForward(targetSpeed, acceleration);
   }
   else
   {
     #ifdef DEBUG
       Serial.println("breaking down backward direction");
     #endif
-    rampDownBackward(targetSpeed);
+    rampDownBackward(targetSpeed, acceleration);
   }
 }
 
-void DRV8871::rampUpForward(byte targetSpeed)
+void DRV8871::rampUpForward(byte targetSpeed, int acceleration)
 {
   _currentDirection = DIRECTION_FORWARD;
   digitalWrite(_motorIN1Pin, LOW);
@@ -84,11 +84,11 @@ void DRV8871::rampUpForward(byte targetSpeed)
     #endif
     analogWrite(_motorIN2Pin, i);
     _currentSpeed = i;
-    delay(ACCELERATION_DELAY_MS);
+    delay(acceleration);
   }
 }
 
-void DRV8871::rampDownForward(byte targetSpeed)
+void DRV8871::rampDownForward(byte targetSpeed, int acceleration)
 {
   _currentDirection = DIRECTION_FORWARD;
   digitalWrite(_motorIN1Pin, LOW);
@@ -100,11 +100,11 @@ void DRV8871::rampDownForward(byte targetSpeed)
     #endif
     analogWrite(_motorIN2Pin, i);
     _currentSpeed = i;
-    delay(ACCELERATION_DELAY_MS);
+    delay(acceleration);
   }
 }
 
-void DRV8871::rampUpBackward(byte targetSpeed)
+void DRV8871::rampUpBackward(byte targetSpeed, int acceleration)
 {
    _currentDirection = DIRECTION_BACKWARD;
   digitalWrite(_motorIN2Pin, LOW);
@@ -116,11 +116,11 @@ void DRV8871::rampUpBackward(byte targetSpeed)
     #endif
     analogWrite(_motorIN1Pin, i);
     _currentSpeed = i;
-    delay(ACCELERATION_DELAY_MS);
+    delay(acceleration);
   }
 }
 
-void DRV8871::rampDownBackward(byte targetSpeed)
+void DRV8871::rampDownBackward(byte targetSpeed, int acceleration)
 {
    _currentDirection = DIRECTION_BACKWARD;
   digitalWrite(_motorIN2Pin, LOW);
@@ -132,7 +132,7 @@ void DRV8871::rampDownBackward(byte targetSpeed)
     #endif
     analogWrite(_motorIN1Pin, i);
     _currentSpeed = i;
-    delay(ACCELERATION_DELAY_MS);
+    delay(acceleration);
   }
 }
 
