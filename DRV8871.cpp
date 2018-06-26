@@ -15,7 +15,7 @@ DRV8871::DRV8871(byte motorIN1Pin, byte motorIN2Pin)
   _currentDirection = DIRECTION_NONE;
 }
 
-void DRV8871::accelerate(byte targetSpeed, byte direction)
+void DRV8871::drive(byte targetSpeed, byte direction, int acceleration)
 {
   if (direction == DIRECTION_FORWARD && _currentDirection == DIRECTION_BACKWARD)
   {

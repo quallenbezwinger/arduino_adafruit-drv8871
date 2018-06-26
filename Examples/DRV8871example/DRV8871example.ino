@@ -4,6 +4,7 @@
 //pin configuration
 #define MOTOR_IN1   9
 #define MOTOR_IN2   10
+#define ACCELERATION   10
 
 DRV8871 motor (
   MOTOR_IN1,
@@ -17,7 +18,7 @@ void setup() {
 
 void loop() {
   Serial.println("ramp up forward from zero to 100");
-  motor.accelerate(100,motor.DIRECTION_FORWARD);
+  motor.drive(100,motor.DIRECTION_FORWARD,ACCELERATION);
   Serial.println("Current speed:");
   Serial.println(motor.currentSpeed());
   Serial.println("Current direction:");
@@ -25,7 +26,7 @@ void loop() {
   delay(4000);
 
   Serial.println("increasing forward speed by ramp up from 100 to 255");
-  motor.accelerate(255,motor.DIRECTION_FORWARD);
+  motor.drive(255,motor.DIRECTION_FORWARD,ACCELERATION);
   Serial.println("Current speed:");
   Serial.println(motor.currentSpeed());
   Serial.println("Current direction:");
@@ -33,7 +34,7 @@ void loop() {
   delay(4000);
 
   Serial.println("switching from forward 255 to backward 150");
-  motor.accelerate(150,motor.DIRECTION_BACKWARD);
+  motor.drive(150,motor.DIRECTION_BACKWARD,ACCELERATION);
   Serial.println("Current speed:");
   Serial.println(motor.currentSpeed());
   Serial.println("Current direction:");

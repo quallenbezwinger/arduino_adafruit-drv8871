@@ -17,7 +17,7 @@ class DRV8871
     const byte DIRECTION_BACKWARD = 1;
     const byte DIRECTION_FORWARD = 2;
     const byte DIRECTION_NONE = 0;
-    void accelerate(byte targetSpeed, byte direction);
+    void drive(byte targetSpeed, byte direction, int acceleration);
     void breakdown(byte targetSpeed = 0);
     byte currentSpeed();
     byte currentDirection();
