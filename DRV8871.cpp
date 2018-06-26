@@ -56,9 +56,15 @@ void DRV8871::breakdown(byte targetSpeed)
 {
   if (_currentDirection == DIRECTION_FORWARD)
   {
+    #ifdef DEBUG
+      Serial.println("breaking down forward direction");
+    #endif
     rampDownForward(targetSpeed);
   } else
   {
+    #ifdef DEBUG
+      Serial.println("breaking down backward direction");
+    #endif
     rampDownBackward(targetSpeed);
   }
 }
