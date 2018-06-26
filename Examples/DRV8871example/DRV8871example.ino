@@ -4,7 +4,6 @@
 //pin configuration
 #define MOTOR_IN1   9
 #define MOTOR_IN2   10
-#define ACCELERATION   10
 
 DRV8871 motor (
   MOTOR_IN1,
@@ -18,38 +17,38 @@ void setup() {
 
 void loop() {
   Serial.println("ramp up forward from zero to 100");
-  motor.drive(100,motor.DIRECTION_FORWARD,ACCELERATION);
+  motor.drive(100, motor.DIRECTION_FORWARD, 10);
   Serial.println("Current speed:");
   Serial.println(motor.currentSpeed());
   Serial.println("Current direction:");
   Serial.println(motor.currentDirection());
-  delay(4000);
+  delay(2000);
 
   Serial.println("increasing forward speed by ramp up from 100 to 255");
-  motor.drive(255,motor.DIRECTION_FORWARD,ACCELERATION);
+  motor.drive(255, motor.DIRECTION_FORWARD, 8);
   Serial.println("Current speed:");
   Serial.println(motor.currentSpeed());
   Serial.println("Current direction:");
   Serial.println(motor.currentDirection());
-  delay(4000);
+  delay(2000);
 
   Serial.println("switching from forward 255 to backward 150");
-  motor.drive(150,motor.DIRECTION_BACKWARD,ACCELERATION);
-  Serial.println("Current speed:");
+  motor.drive(150, motor.DIRECTION_BACKWARD, 5);
+  Serial.println("Current speed:")2
   Serial.println(motor.currentSpeed());
   Serial.println("Current direction:");
   Serial.println(motor.currentDirection());
   delay(4000);
 
   Serial.println("breaking from backward 150 to backward 80");
-  motor.breakdown(80);
+  motor.breakdown(4);
   Serial.println("Current speed:");
   Serial.println(motor.currentSpeed());
   Serial.println("Current direction:");
   Serial.println(motor.currentDirection());
   delay(4000);
 
-  Serial.println("breaking from backward 80 to backward 0");
+  Serial.println("breaking from backward 80 to backward 0 instantly");
   motor.breakdown();
   Serial.println("Current speed:");
   Serial.println(motor.currentSpeed());
