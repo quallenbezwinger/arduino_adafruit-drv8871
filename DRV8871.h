@@ -26,7 +26,7 @@ class DRV8871
     byte _motorIN1Pin;
     byte _motorIN2Pin;
     byte _currentSpeed = 0;
-    byte _currentDirection;
+    byte _currentDirection = DIRECTION_NONE;
     void rampUpForward(byte targetSpeed, int acceleration);
     void rampDownForward(byte targetSpeed, int acceleration);
     void rampUpBackward(byte targetSpeed, int acceleration);
