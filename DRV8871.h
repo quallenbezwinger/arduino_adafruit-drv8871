@@ -8,7 +8,7 @@
 
 #include "Arduino.h"
 
-#define DEBUG
+//#define DEBUG
 
 class DRV8871
 {

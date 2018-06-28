@@ -13,18 +13,19 @@ DRV8871 motor2 (MOTOR2_IN1, MOTOR2_IN2);
 
 DRV8871Dual dualMotorController (&motor1, &motor2);
 
-void setup() {                          
-  Serial.begin(9600);  
-  Serial.println("Setup finished");
+void setup()
+{                          
+
 }
 
-void loop() {
-  dualMotorController.accelerate(50, dualMotorController.DIRECTION_FORWARD);
+void loop()
+{
+  dualMotorController.drive(50, dualMotorController.DIRECTION_FORWARD, 10);
   delay (1000);
-  dualMotorController.turn(10, dualMotorController.TURN_LEFT);
+  dualMotorController.turn(10, dualMotorController.TURN_LEFT, 10);
   delay (1000);
-  dualMotorController.accelerate(50, dualMotorController.DIRECTION_BACKWARD);
+  dualMotorController.drive(50, dualMotorController.DIRECTION_BACKWARD, 10);
   delay (1000);
-  dualMotorController.turn(10, dualMotorController.TURN_RIGHT);
+  dualMotorController.turn(10, dualMotorController.TURN_RIGHT, 10);
   delay (1000);
 }
