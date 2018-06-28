@@ -28,4 +28,8 @@ void loop()
   delay (1000);
   dualMotorController.turn(10, dualMotorController.TURN_RIGHT, 10);
   delay (1000);
+  dualMotorController.drive(50, dualMotorController.DIRECTION_FORWARD, 10);
+  delay (1000);
+  dualMotorController.breakdown();
+  delay (1000);
 }

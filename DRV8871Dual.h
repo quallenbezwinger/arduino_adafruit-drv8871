@@ -19,6 +19,7 @@ class DRV8871Dual
     const byte TURN_RIGHT = 3;  
     void drive (byte speed, byte direction, int acceleration);
     void turn (byte speed, byte direction, int acceleration);
+    void breakdown (byte targetSpeed = 0, int acceleration = 0);
   private:
     DRV8871* _motor1;
     DRV8871* _motor2;

@@ -32,3 +32,9 @@ void DRV8871Dual::turn (byte speed, byte direction, int acceleration)
     _motor2->drive(speed,_motor1->DIRECTION_FORWARD, acceleration);
   }
 }
+
+void DRV8871Dual::breakdown (byte targetSpeed, int acceleration)
+{
+  _motor1->breakdown(targetSpeed, acceleration);
+  _motor2->breakdown(targetSpeed, acceleration);
+}
