@@ -17,6 +17,12 @@ DRV8871::DRV8871(byte motorIN1Pin, byte motorIN2Pin)
 
 void DRV8871::drive(byte targetSpeed, byte direction, int acceleration)
 {
+  //check if direction and speed is already set to prevent unnecessary execution
+  if (direction == _currentDirection && targetSpeed == _currentSpeed)
+  {
+    return;
+  }
+  
   if (direction == DIRECTION_FORWARD && _currentDirection == DIRECTION_BACKWARD)
   {
     #ifdef DEBUG
