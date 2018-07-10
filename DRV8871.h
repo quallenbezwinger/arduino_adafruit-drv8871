@@ -7,13 +7,14 @@
 #define DRV8871_h
 
 #include "Arduino.h"
+#include "DRV8871_MotorConfig.h"
 
 //#define DEBUG
 
 class DRV8871
 {
   public:
-    DRV8871 (byte motorIN1Pin, byte motorIN2Pin);
+    DRV8871 (DRV8871_MotorConfig* pMotorCollection[2]);
     const byte DIRECTION_NONE = 0;
     const byte DIRECTION_FORWARD = 1;
     const byte DIRECTION_BACKWARD = 2;
@@ -23,8 +24,6 @@ class DRV8871
     byte currentDirection();
   private:
     const byte ACCELERATION_DELAY_MS = 10;
-    byte _motorIN1Pin;
-    byte _motorIN2Pin;
     byte _currentSpeed = 0;
     byte _currentDirection = DIRECTION_NONE;
     void rampUpForward(byte targetSpeed, int acceleration);

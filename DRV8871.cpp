@@ -5,19 +5,16 @@
 
 #include "Arduino.h"
 #include "DRV8871.h"
+#include "DRV8871_MotorConfig.h"
 
-DRV8871::DRV8871(byte motorIN1Pin, byte motorIN2Pin)
+DRV8871::DRV8871(DRV8871_MotorConfig* pMotorCollection[2])
 {
-  _motorIN1Pin = motorIN1Pin;
-  _motorIN2Pin = motorIN2Pin;
-  pinMode(_motorIN1Pin, OUTPUT);
-  pinMode(_motorIN2Pin, OUTPUT); 
   _currentDirection = DIRECTION_NONE;
 }
 
 void DRV8871::drive(byte targetSpeed, byte direction, int acceleration)
 {
-  //check if direction and speed is already set to prevent unnecessary execution
+ /* //check if direction and speed is already set to prevent unnecessary execution
   if (direction == _currentDirection && targetSpeed == _currentSpeed)
   {
     return;
@@ -25,32 +22,20 @@ void DRV8871::drive(byte targetSpeed, byte direction, int acceleration)
   
   if (direction == DIRECTION_FORWARD && _currentDirection == DIRECTION_BACKWARD)
   {
-    #ifdef DEBUG
-      Serial.println("ramp down backward and then ramp up forward");
-    #endif
     rampDownBackward(0, acceleration);
     rampUpForward(targetSpeed, acceleration);
   }
   else if (direction == DIRECTION_FORWARD || _currentDirection == DIRECTION_NONE)
   {
-    #ifdef DEBUG
-      Serial.println("ramp up forward");
-    #endif
     rampUpForward(targetSpeed, acceleration);
   } 
   else if (direction == DIRECTION_BACKWARD && _currentDirection == DIRECTION_FORWARD)
   {
-    #ifdef DEBUG
-      Serial.println("ramp down forward and then ramp up backward");
-    #endif
     rampDownForward(0, acceleration);
     rampUpBackward(targetSpeed, acceleration);
   }
   else if (direction == DIRECTION_BACKWARD || _currentDirection == DIRECTION_NONE)
   {
-    #ifdef DEBUG
-      Serial.println("ramp up backward");
-    #endif
     rampUpBackward(targetSpeed, acceleration);
   }
   //check if spped is 0, if yes direction is set to neutral
@@ -58,88 +43,84 @@ void DRV8871::drive(byte targetSpeed, byte direction, int acceleration)
   {
     _currentDirection == DIRECTION_NONE;
   }
+  */
 }
 
 void DRV8871::breakdown(byte targetSpeed, int acceleration)
 {
+  /*
   if (_currentDirection == DIRECTION_FORWARD)
   {
-    #ifdef DEBUG
-      Serial.println("breaking down forward direction");
-    #endif
     rampDownForward(targetSpeed, acceleration);
   }
   else
   {
-    #ifdef DEBUG
-      Serial.println("breaking down backward direction");
-    #endif
     rampDownBackward(targetSpeed, acceleration);
   }
+  */
 }
 
 void DRV8871::rampUpForward(byte targetSpeed, int acceleration)
 {
+  /*
   _currentDirection = DIRECTION_FORWARD;
-  digitalWrite(_motorIN1Pin, LOW);
+  for (int j=0; j<_motorCollection.length(); j++)
+  {
+    digitalWrite(_motorCollection[j].getMotorIN1Pin(), LOW);
+  }
   for (int i=_currentSpeed; i<targetSpeed; i++)
   {
-    #ifdef DEBUG
-      Serial.println("increasing speed forward by:");
-      Serial.println(i);
-    #endif
-    analogWrite(_motorIN2Pin, i);
+    for (int j=0; j<_motorCollection.length(); j++)
+    {
+      analogWrite(_motorCollection[j].getMotorIN2Pin(), i);
+    }
     _currentSpeed = i;
     delay(acceleration);
   }
+  */
 }
 
 void DRV8871::rampDownForward(byte targetSpeed, int acceleration)
 {
-  _currentDirection = DIRECTION_FORWARD;
+ /* _currentDirection = DIRECTION_FORWARD;
   digitalWrite(_motorIN1Pin, LOW);
   for (int i=_currentSpeed; i>=targetSpeed; i--)
   {
-    #ifdef DEBUG
-      Serial.println("decreasing speed forward by:");
-      Serial.println(i);
-    #endif
-    analogWrite(_motorIN2Pin, i);
+    for (int j=0; j<_motorCollection.length(); j++)
+    {
+        analogWrite(_motorIN2Pin, i);
+    }
     _currentSpeed = i;
     delay(acceleration);
   }
+  */
 }
 
 void DRV8871::rampUpBackward(byte targetSpeed, int acceleration)
 {
-   _currentDirection = DIRECTION_BACKWARD;
+ /*  _currentDirection = DIRECTION_BACKWARD;
   digitalWrite(_motorIN2Pin, LOW);
   for (int i=_currentSpeed; i<targetSpeed; i++)
   {
-    #ifdef DEBUG
-      Serial.println("increasing speed backward by:");
-      Serial.println(i);
-    #endif
+    
     analogWrite(_motorIN1Pin, i);
     _currentSpeed = i;
     delay(acceleration);
   }
+  */
 }
 
 void DRV8871::rampDownBackward(byte targetSpeed, int acceleration)
 {
-   _currentDirection = DIRECTION_BACKWARD;
+  /* _currentDirection = DIRECTION_BACKWARD;
   digitalWrite(_motorIN2Pin, LOW);
   for (int i=_currentSpeed; i>=targetSpeed; i--)
   {
-    #ifdef DEBUG
-      Serial.println("decreasing speed backward by:");
-      Serial.println(i);
-    #endif
     analogWrite(_motorIN1Pin, i);
     _currentSpeed = i;
     delay(acceleration);
   }
+  */
 }
 
 byte DRV8871::currentSpeed ()
