@@ -13,28 +13,28 @@ DRV8871Dual::DRV8871Dual(DRV8871* motor1, DRV8871* motor2)
   _motor2 = motor2;
 }
 
-void DRV8871Dual::drive (byte speed, byte direction, int acceleration)
+void DRV8871Dual::drive (byte speed, byte direction)
 {
-  _motor1->drive(speed, direction, acceleration);
-  _motor2->drive(speed, direction, acceleration);
+  _motor1->drive(speed, direction, 0);
+  _motor2->drive(speed, direction, 0);
 }
 
-void DRV8871Dual::turn (byte speed, byte direction, int acceleration)
+void DRV8871Dual::turn (byte speed, byte direction)
 {
   if (direction == TURN_LEFT)
   {
-    _motor1->drive(speed,_motor1->DIRECTION_FORWARD, acceleration);
-    _motor2->drive(speed,_motor1->DIRECTION_BACKWARD, acceleration);
+    _motor1->drive(speed,_motor1->DIRECTION_FORWARD, 0);
+    _motor2->drive(speed,_motor1->DIRECTION_BACKWARD, 0);
   }
   else if (direction == TURN_RIGHT)
   {
-    _motor1->drive(speed,_motor1->DIRECTION_BACKWARD, acceleration);
-    _motor2->drive(speed,_motor1->DIRECTION_FORWARD, acceleration);
+    _motor1->drive(speed,_motor1->DIRECTION_BACKWARD, 0);
+    _motor2->drive(speed,_motor1->DIRECTION_FORWARD, 0);
   }
 }
 
-void DRV8871Dual::breakdown (byte targetSpeed, int acceleration)
+void DRV8871Dual::breakdown (byte targetSpeed)
 {
-  _motor1->breakdown(targetSpeed, acceleration);
-  _motor2->breakdown(targetSpeed, acceleration);
+  _motor1->breakdown(targetSpeed, 0);
+  _motor2->breakdown(targetSpeed, 0);
 }

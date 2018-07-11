@@ -13,13 +13,13 @@ class DRV8871Dual
 {
   public:
     DRV8871Dual (DRV8871* motor1, DRV8871* motor2);
-    const byte DIRECTION_BACKWARD = 0;
     const byte DIRECTION_FORWARD = 1;  
+    const byte DIRECTION_BACKWARD = 2;
     const byte TURN_LEFT = 2;  
     const byte TURN_RIGHT = 3;  
-    void drive (byte speed, byte direction, int acceleration);
-    void turn (byte speed, byte direction, int acceleration);
-    void breakdown (byte targetSpeed = 0, int acceleration = 0);
+    void drive (byte speed, byte direction);
+    void turn (byte speed, byte direction);
+    void breakdown (byte targetSpeed = 0);
   private:
     DRV8871* _motor1;
     DRV8871* _motor2;

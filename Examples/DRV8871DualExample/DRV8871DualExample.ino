@@ -20,15 +20,15 @@ void setup()
 
 void loop()
 {
-  dualMotorController.drive(50, dualMotorController.DIRECTION_FORWARD, 10);
+  dualMotorController.drive(50, dualMotorController.DIRECTION_FORWARD);
   delay (1000);
-  dualMotorController.turn(10, dualMotorController.TURN_LEFT, 10);
+  dualMotorController.turn(10, dualMotorController.TURN_LEFT);
   delay (1000);
-  dualMotorController.drive(50, dualMotorController.DIRECTION_BACKWARD, 10);
+  dualMotorController.drive(50, dualMotorController.DIRECTION_BACKWARD);
   delay (1000);
-  dualMotorController.turn(10, dualMotorController.TURN_RIGHT, 10);
+  dualMotorController.turn(10, dualMotorController.TURN_RIGHT);
   delay (1000);
-  dualMotorController.drive(50, dualMotorController.DIRECTION_FORWARD, 10);
+  dualMotorController.drive(50, dualMotorController.DIRECTION_FORWARD);
   delay (1000);
   dualMotorController.breakdown();
   delay (1000);
