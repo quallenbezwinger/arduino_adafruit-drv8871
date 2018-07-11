@@ -1,0 +1,5 @@
+{
+    "board": "arduino:avr:uno",
+    "sketch": "Examples\\DRV8871DualExample\\DRV8871DualExample.ino",
+    "output": "Output"
+}
